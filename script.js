@@ -19,7 +19,10 @@ class Caminhao{
     NotaFiscal;
     HorarioDeChegada;
 
-    Vaga;
+    Vaga = null;
+    HorarioAtual;
+    TempoDeJejumRestante;
+
 
     GetInfo(){
         return {
@@ -41,31 +44,26 @@ class Caminhao{
         "Ordem do caminhao": this.OrdemDoCaminhao,
         "Placa": this.Placa,
         "Nota fiscal": this.NotaFiscal,
-        "Horario de chegada": this.HorarioDeChegada
-        }
+        "Horario de chegada": this.HorarioDeChegada,
+        "Tempo de jejum previsto": this.HorarioPrevistoInicioDoAbate - this.HorarioDeRetiradaDaRacao,
+        "Tempo de jejum usado": this.HorarioAtual - this.HorarioDeRetiradaDaRacao,
+        "Tempo de jejum restante": 12 - (this.HorarioAtual - this.HorarioDeRetiradaDaRacao)  
+    }
     }
     constructor(){
-         Vagas.forEach(Vaga => {
-            if(Vaga.Ocupada == false){
-                this.Vaga = Vaga;
-                Vaga.Ocupada = true;
-                CaminhoesAtivos[CaminhoesAtivos.lenght + 1] = this;
-            }
+         Vagas.forEach(Tipo => {
+            Tipo.forEach(Vaga =>{
+                if(Vaga.Ocupada == false && this.Vaga == null){
+                    this.Vaga = Vaga;
+                    Vaga.Ocupada = true;
+                    CaminhoesAtivos[CaminhoesAtivos.lenght + 1] = this;
+                }
+            })
          });   
     }
 }
 
 let CaminhoesAtivos = {};
-
-function Remover(Placa, Justificativa){
-    CaminhoesAtivos.forEach(Carga => {
-        if(Carga.Placa == Placa){
-            delete Carga;
-        }else{
-            Carga.OrdemDoCaminhao--;
-        }
-    });
-};
  
 let Vagas = {
     "Interna": {
@@ -103,4 +101,35 @@ let Vagas = {
         }
     }
 }
+
+function Remover(Placa, Justificativa){
+    CaminhoesAtivos.forEach(Carga => {
+        if(Carga.Placa == Placa){
+            // Justificativa
+            Carga.Vaga.Ocupada = false;
+            delete Carga;
+        }else{
+            Carga.OrdemDoCaminhao--;
+            if(Carga.Vaga == null){
+                // mensagem
+            }
+        }
+    });
+};
+
+function GetHour() {
+        var Data = new Date();
+        var TimeString = Data.toISOString().substring(11, 19);
+        return TimeString;
+}
+
+function Format(Minutos) {
+    var Horas = Math.floor(Minutos / 60);
+    var MinutosRestantes = Minutos % 60;
+  
+    var Resultado = Horas + " horas " + MinutosRestantes + " minutos";
+  
+    return Resultado;
+}
+
 
