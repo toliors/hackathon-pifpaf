@@ -109,7 +109,7 @@ let Vagas = {
         },
         "4": {
             Ocupada: false
-        },
+        }},
     "Externa":{
         "1":{
             Ocupada: false 
@@ -130,8 +130,7 @@ let Vagas = {
             Ocupada: false
         }
     }
-}       // {"Peso previsto por caixa":"22400"},
-
+};    
 
 
 function Remover(Placa, Justificativa){
