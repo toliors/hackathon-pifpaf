@@ -1,4 +1,5 @@
 var JSONData = jQuery.getJSON("./info.json");
+var Data = JSON.parse(JSONData)
 console.log(Data)
 
 class Caminhao{

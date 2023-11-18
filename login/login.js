@@ -2,24 +2,21 @@ var Form = document.getElementById('form');
 var Campo = document.getElementById('senha');
 
 const Senhas = {
-    "Gerente": 444,
-    "Motorista": 555,
-    "Granja": 666,
-    "Apanha": 777,
-    "Recepção": 888,
-    "SIF": 999,
+    "gerente": 444,
+    "motorista": 555,
+    "granja": 666,
+    "apanha": 777,
+    "recepção": 888,
+    "sif": 999,
 };
 
 function Validar(Tipo, Senha){
     console.log(Tipo, Senha)
-    if(Senhas[Tipo] == Senha){
-        return 1;
+    if(Senhas[Tipo] == Senha){       
+        window.location = ".././main/main.html";
     }else{
+        alert("Senha incorreta! Tente novamente");
+        document.getElementById("senha").value = "";
         return 0;
     }
-}
-
-
-function ale(){
-    alert("anidwnuidawnuaidwnuidnuiwnadnuwanudnu")
 }
