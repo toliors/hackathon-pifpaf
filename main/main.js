@@ -1,3 +1,6 @@
+var JSONData = jQuery
+console.log(Data)
+
 class Caminhao{
     DestinoAves;
     AvesPorVeiculo;
@@ -21,8 +24,9 @@ class Caminhao{
 
     Vaga = null;
     HorarioAtual;
+    TempoDeJejumPrevisto;
+    TempoDeJejumUsado;
     TempoDeJejumRestante;
-
 
     GetInfo(){
         return {
@@ -35,28 +39,52 @@ class Caminhao{
         "Peso previsto por caixa": this.PesoPrevistoPorCaixa,
         "Municipio": this.Municipio,
         "Data": this.Data,
-        "Horario de retirada da ração": this.HorarioDeRetiradaDaRacao,
-        "Horário": this.Horario,
-        "Turma de apanha": this.TurmaDeApanha,
+        "Horario de retirada da ração": Format(this.HorarioDeRetiradaDaRacao),
+        "Horário": Format(this.Horario),
+        "Turma de apanhaconfig": this.TurmaDeApanha,
         "Idade": this.Idade,
-        "Horario previsto chegada frigorifico": this.HorarioPrevistoChegadaFrigorifico,
-        "Horario ṕrevisto início do abate": this.HorarioPrevistoInicioDoAbate,
+        "Horario previsto chegada frigorifico": Format(this.HorarioPrevistoChegadaFrigorifico),
+        "Horario ṕrevisto início do abate": Fomat(this.HorarioPrevistoInicioDoAbate),
         "Ordem do caminhao": this.OrdemDoCaminhao,
         "Placa": this.Placa,
         "Nota fiscal": this.NotaFiscal,
-        "Horario de chegada": this.HorarioDeChegada,
-        "Tempo de jejum previsto": this.HorarioPrevistoInicioDoAbate - this.HorarioDeRetiradaDaRacao,
-        "Tempo de jejum usado": this.HorarioAtual - this.HorarioDeRetiradaDaRacao,
-        "Tempo de jejum restante": 12 - (this.HorarioAtual - this.HorarioDeRetiradaDaRacao)  
+        "Horario de chegada": Format(this.HorarioDeChegada),
+        "Tempo de jejum previsto": Format(this.TempoDeJejumPrevisto),
+        "Tempo de jejum usado": Format(this.HorarioAtual - this.HorarioDeRetiradaDaRacao),
+        "Tempo de jejum restante": Format(12 - (this.HorarioAtual - this.HorarioDeRetiradaDaRacao))  
     }
     }
-    constructor(){
-         Vagas.forEach(Tipo => {
+    constructor(Destino, AvesPorVeiculo, Produtor, Galpao, Sexo, PesoPrevistoDasAves, AvesPorCaixa, Municipio, Data, HorarioDeRetiradaDaRacao, Horario, TurmaDeApanha, Idade, HorarioPrevistoDeChegada, HorarioPrevistoInicioDoAbate, Placa, NotaFiscal, HorarioDeChegada){
+        this.DestinoAves = Destino;
+        this.AvesPorVeiculo = AvesPorVeiculo;
+        this.Produtor = Produtor;
+        this.Galpao = Galpao;
+        this.Sexo = Sexo;
+        this.PesoPrevistoDasAves = PesoPrevistoDasAves;
+        this.AvesPorCaixa = AvesPorCaixa;
+        this.PesoPrevistoPorCaixa = this.AvesPorCaixa * this.PesoPrevistoDasAves;
+        this.Municipio = Municipio;
+        this.Data = Data;
+        this.HorarioDeRetiradaDaRacao =  HorarioDeRetiradaDaRacao;
+        this.Horario = Horario;
+        this.TurmaDeApanha = TurmaDeApanha;
+        this.Idade = Idade;
+        this.HorarioDeChegada = HorarioDeChegada;
+        this.HorarioPrevistoInicioDoAbate = HorarioPrevistoInicioDoAbate;
+        this.Placa = Placa;
+        this.NotaFiscal = NotaFiscal;
+        this.HorarioDeChegada = HorarioDeChegada;
+
+        this.TempoDeJejumPrevisto = Format(this.HorarioPrevistoInicioDoAbate - this.HorarioDeRetiradaDaRacao),
+        this.TempoDeJejumUsado = Format(this.HorarioAtual - this.HorarioDeRetiradaDaRacao),
+        this.TempoDeJejumRestante = Format(12 - (this.HorarioAtual - this.HorarioDeRetiradaDaRacao))  
+
+        Vagas.forEach(Tipo => {
             Tipo.forEach(Vaga =>{
                 if(Vaga.Ocupada == false && this.Vaga == null){
                     this.Vaga = Vaga;
                     Vaga.Ocupada = true;
-                    CaminhoesAtivos[CaminhoesAtivos.lenght + 1] = this;
+                    CaminconfighoesAtivos[CaminhoesAtivos.lenght + 1] = this;
                 }
             })
          });   
@@ -100,7 +128,8 @@ let Vagas = {
             Ocupada: false
         }
     }
-}
+}       // {"Peso previsto por caixa":"22400"},
+
 
 function Remover(Placa, Justificativa){
     CaminhoesAtivos.forEach(Carga => {
@@ -127,9 +156,11 @@ function Format(Minutos) {
     var Horas = Math.floor(Minutos / 60);
     var MinutosRestantes = Minutos % 60;
   
-    var Resultado = Horas + " horas " + MinutosRestantes + " minutos";
+    var Resultado = Horas + ":" + MinutosRestantes + ":00";
   
     return Resultado;
 }
 
-
+Data.forEach(element =>{
+    console.log(element)
+})
