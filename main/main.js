@@ -110,9 +110,8 @@ let Vagas = {
         "4": {
             Ocupada: false
         },
-    },for (const child of myElement.children) {
-        console.log(child.tagName);
-      }
+    "Externa":{
+        "1":{
             Ocupada: false 
         },
         "2": {
