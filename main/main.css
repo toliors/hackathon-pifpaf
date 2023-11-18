@@ -8,7 +8,7 @@
 .header {
     background-color: #f1bc35; 
     padding: 30px; 
-    text-align:center
+    text-align: center
 }
 
 .header img {
@@ -31,10 +31,32 @@
     color: black
 }
 
+.menu a:hover, .block:hover {
+    background-color: #ebb52d;
+    cursor: pointer;
+}
+
 .main {
     float: left;
     width: 60%;
     padding: 0 20px
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 50px auto;
+}
+
+.block {
+    border: none;
+    border-radius: 7px;
+    width: 19%;
+    height: 200px;
+    margin: 5px;
+    background-color: #f1bc35;
+    box-sizing: border-box;
+    font-size: 30px;
 }
 
 .right {
