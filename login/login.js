@@ -10,12 +10,14 @@ const Senhas = {
     "sif": 999,
 };
 
+
 function Validar(Tipo, Senha){
     console.log(Tipo, Senha)
     if(Senhas[Tipo] == Senha){       
         window.location = ".././main/main.html";
     }else{
-        alert("Senha incorreta! Tente novamente");
+        document.getElementById("erro").innerText = "Senha incorreta! Tente novamente...";
+
         document.getElementById("senha").value = "";
         return 0;
     }
