@@ -2,6 +2,8 @@ var JSONData = jQuery.getJSON("./info.json");
 var Data = JSON.parse(JSONData)
 console.log(Data)
 
+var MainButton = document.getElementById("MainButton");
+
 class Caminhao{
     DestinoAves;
     AvesPorVeiculo;
@@ -108,9 +110,9 @@ let Vagas = {
         "4": {
             Ocupada: false
         },
-    },
-    "Externa": {
-        "1": {
+    },for (const child of myElement.children) {
+        console.log(child.tagName);
+      }
             Ocupada: false 
         },
         "2": {
@@ -130,6 +132,7 @@ let Vagas = {
         }
     }
 }       // {"Peso previsto por caixa":"22400"},
+
 
 
 function Remover(Placa, Justificativa){
@@ -162,6 +165,25 @@ function Format(Minutos) {
     return Resultado;
 }
 
-Data.forEach(element =>{
-    console.log(element)
-})
+function DisableButton(ButtonId){
+    document.getElementById(ButtonId).style = "display: none";
+}
+
+function EnableButton(ButtonId){
+    document.getElementById(ButtonId).style = "display: inline";
+}
+
+function Setup(Placa){
+    let Selecionado, Info, I = 0;
+    CaminhoesAtivos.forEach(Caminhao =>{
+        if(Caminhao.Placa == Placa){
+            Selecionado = Caminhao;
+            Info = Selecionado.GetInfo();
+        }
+    })
+    for (const Index of Info) {
+        MainButton.children[I].innerText = Index + Info[Index];
+        I++;
+    }
+}
+
