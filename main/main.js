@@ -1,4 +1,4 @@
-var JSONData = jQuery
+var JSONData = jQuery.getJSON("./info.json");
 console.log(Data)
 
 class Caminhao{
