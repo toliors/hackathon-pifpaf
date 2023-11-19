@@ -18,6 +18,35 @@
     width: 151px;
 }
 
+.main {
+    background-color: #f1e5df;
+    color: #942434;
+    float: left;
+    width: 100%;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+button {
+    font-size: 18px;
+    border-color: #942434;
+    border-width: 3px;
+    border-style: solid;
+    width: 300px;
+    border-radius: 7px;
+    height: 50px;
+    transition: .5s;
+    background-color: #942434;
+    color: #f1e5df;
+}
+
+button:hover {
+    transition: .5s;
+    background-color: #831727;
+    cursor: pointer
+    
+}
+
 .footer {
     background-color: #942434;
     color: #f1e5df;
