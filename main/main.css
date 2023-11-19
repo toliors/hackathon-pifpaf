@@ -29,6 +29,7 @@ body {
 }
 
 .menu a {
+    transition: .5s;
     background-color: #f1bc35;
     padding: 9px;
     display: block;
@@ -39,6 +40,7 @@ body {
 }
 
 .menu a:hover {
+    transition: .5s;
     background-color: #ebb52d;
     cursor: pointer;
 }
@@ -87,7 +89,7 @@ body {
     height: 57px;
     font-size: 18px;
     background-color: #942434;
-    color: #f1e5df;;
+    color: #f1e5df;
 }
 
 .block button:hover {
@@ -96,6 +98,16 @@ body {
     background-color: #831727;
     cursor: pointer;
 }  
+
+.modal {
+    visibility: hidden;
+    position: absolute;
+    height: 40%;
+    width: 30%;
+    background-color: #831727;
+    border-radius: 7px;
+    color: #f1e5df;
+}
 
 .right {
     background-color: #f1bc35;
