@@ -169,12 +169,10 @@ function Format(Minutos) {
 }
 
 function DisableButton(ButtonId){
-    document.getElementById(ButtonId).style = "visibility: hidden";
     document.getElementById(ButtonId).style = "display: none";
 }
 
 function EnableButton(ButtonId){
-    document.getElementById(ButtonId).style = "visibility: hidden";
     document.getElementById(ButtonId).style = "display: inline";
 }
 
