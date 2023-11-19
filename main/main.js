@@ -1,5 +1,4 @@
-
-const MainButton = document.getElementById("MainButton");
+let MainButton;
 var Template;
 const MessageButton = document.getElementById("message");
 var Botoes = document.getElementsByClassName("block");
@@ -39,13 +38,7 @@ class Caminhao{
     AvesPorCaixa;
     PesoPrevistoPorCaixa;
     Municipio;
-    Data;
-    HorarioDeRetiradaDaRacao;
-    Horario;
-    TurmaDeApanha;
-    Idade;
-    HorarioPrevistoChegadaFrigorifico;
-    HorarioPrevistoInicioDoAbate;
+    Data;const
     OrdemDoCaminhao;
     Placa;
     NotaFiscal;
@@ -123,7 +116,8 @@ class Caminhao{
                             child.innerText = this.OrdemDoCaminhao + " - " + this.Placa;
                         }else{
                             child.onclick = () => {
-                                console.log(this.GetInfo());
+                                console.log("dawdwd")
+                                EnableButton(MainButton.id);
                               };
                         }
                     CaminhoesAtivos[this.OrdemDoCaminhao] = this;
@@ -157,22 +151,6 @@ function MakeButton(index){
         return NewButton;
 }
 
-function ReOrder(){
-var divs = mylist.getElementsByClassName('block');
-var listitems = [];
-for (i = 0; i < divs.length; i++) {
-        listitems.push(divs.item(i));
-}
-listitems.sort(function(a, b) {
-    var compA = a.getAttribute('id').toUpperCase();
-    var compB = b.getAttribute('id').toUpperCase();
-    return (compA < compB) ? -1 : (compA > compB) ? 1 : 0;
-});
-for (i = 0; i < listitems.length; i++) {
-    mylist.appendChild(listitems[i]);
-}​
-}
-
 function GetHour() {
         var Data = new Date();
         var TimeString = Data.toISOString().substring(11, 19);
@@ -191,10 +169,12 @@ function Format(Minutos) {
 }
 
 function DisableButton(ButtonId){
+    document.getElementById(ButtonId).style = "visibility: hidden";
     document.getElementById(ButtonId).style = "display: none";
 }
 
 function EnableButton(ButtonId){
+    document.getElementById(ButtonId).style = "visibility: hidden";
     document.getElementById(ButtonId).style = "display: inline";
 }
 
@@ -448,6 +428,10 @@ const Infos = [
 ]
 
 function Init(){
+    MainButton = document.getElementById("modal");
+    document.getElementById("fechar").onclick = () => {
+        DisableButton(MainButton.id);
+      };
 Infos.forEach(element => {
     const Keys = Object.keys(element);
      new Caminhao(element[Keys[0]], element[Keys[1]], element[Keys[2]], element[Keys[3]], element[Keys[4]], element[Keys[5]], element[Keys[6]], element[Keys[7]], element[Keys[8]],element[Keys[9]], element[Keys[10]], element[Keys[11]], element[Keys[12]], element[Keys[13]], element[Keys[14]], element[Keys[15]], element[Keys[16]], element[Keys[17]], element[Keys[18]], element[Keys[19]]);
