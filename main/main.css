@@ -107,17 +107,41 @@ body {
 
 .footer {
     background-color: #942434;
+    color: #f1e5df;
     text-align: center;
     padding: 10px;
-    margin-top: -50px;
-    color: #f1e5df;
+}
+
+.leftfooter {
+    text-align: left;
+    margin-top: 40px;
+    margin-left: 740px;
+}
+
+.righfooter {
+    text-align: left;
+    display: flex;
+    margin-top: 40px;
+    margin-left: 740px;
+}
+
+.righfooter img {
+    width: 123px;
+    aspect-ratio: 3/2;
+    object-fit: contain;
+    mix-blend-mode: color-dodge;
 }
 
 @media only screen and (max-width: 1250px) {
-    .menu, .main, .right, .block {
+    .menu, .main, .right{
         width: 100%;
     }
-    .footer {
-        margin-top: 0;
+    .leftfooter {
+        margin-top: 40px;
+        margin-left: 0;
+    }
+    .righfooter {
+        margin-left: 0;
+        aspect-ratio: 1/0;
     }
 }
