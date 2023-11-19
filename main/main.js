@@ -1,8 +1,7 @@
-var JSONData = jQuery.getJSON("./info.json");
-var Data = JSON.parse(JSONData)
-console.log(Data)
 
-var MainButton = document.getElementById("MainButton");
+const MainButton = document.getElementById("MainButton");
+const MessageButton = document.getElementById("message");
+var Botoes = document.getElementsByClassName("block");
 
 class Caminhao{
     DestinoAves;
@@ -47,7 +46,7 @@ class Caminhao{
         "Turma de apanhaconfig": this.TurmaDeApanha,
         "Idade": this.Idade,
         "Horario previsto chegada frigorifico": Format(this.HorarioPrevistoChegadaFrigorifico),
-        "Horario ṕrevisto início do abate": Fomat(this.HorarioPrevistoInicioDoAbate),
+        "Horario ṕrevisto início do abate": Format(this.HorarioPrevistoInicioDoAbate),
         "Ordem do caminhao": this.OrdemDoCaminhao,
         "Placa": this.Placa,
         "Nota fiscal": this.NotaFiscal,
@@ -85,9 +84,10 @@ class Caminhao{
         Vagas.forEach(Tipo => {
             Tipo.forEach(Vaga =>{
                 if(Vaga.Ocupada == false && this.Vaga == null){
+                    Botoes[CaminhoesAtivos.lenght].innerText = this.Placa;
                     this.Vaga = Vaga;
                     Vaga.Ocupada = true;
-                    CaminconfighoesAtivos[CaminhoesAtivos.lenght + 1] = this;
+                    CaminhoesAtivos[CaminhoesAtivos.lenght + 1] = this;
                 }
             })
          });   
@@ -95,7 +95,6 @@ class Caminhao{
 }
 
 let CaminhoesAtivos = {};
- 
 let Vagas = {
     "Interna": {
         "1": {
@@ -132,17 +131,16 @@ let Vagas = {
     }
 };    
 
-
 function Remover(Placa, Justificativa){
     CaminhoesAtivos.forEach(Carga => {
         if(Carga.Placa == Placa){
-            // Justificativa
+            MakeMessage(Justificativa, 10);
             Carga.Vaga.Ocupada = false;
             delete Carga;
         }else{
             Carga.OrdemDoCaminhao--;
             if(Carga.Vaga == null){
-                // mensagem
+                MakeMessage("Sua ordem agora é " + Carga.OrdemDoCaminhao + "º", 10);
             }
         }
     });
@@ -171,6 +169,18 @@ function EnableButton(ButtonId){
     document.getElementById(ButtonId).style = "display: inline";
 }
 
+function Desocupar(Vaga, Tipo){
+    Vagas[Tipo][Vaga].Ocupada = false;
+}
+
+function MakeMessage(Text, Timeout){
+    EnableButton(MessageButton.id);
+    MessageButton.innerText = Text;
+    return new Promise(resolve => setTimeout(resolve, Timeout));
+    MessageButton.innerText = "";
+    DisableButton(MessageButton.id);
+}
+
 function Setup(Placa){
     let Selecionado, Info, I = 0;
     CaminhoesAtivos.forEach(Caminhao =>{
@@ -185,3 +195,8 @@ function Setup(Placa){
     }
 }
 
+const Infos = jQuery.getJSON("./info.json", function(Data) {
+    jQuery.each(Data, function(Key, Value){
+        new Caminhao(Data[0], Data[1], Data[2], Data[3], Data[4], Data[5], Data[6], Data[7], Data[9], Data[10], Data[11], Data[12], Data[13], Data[14], Data[15], Data[16], Data[17], Data[18],Data[19]);
+    })
+});
