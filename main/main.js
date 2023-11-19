@@ -429,6 +429,9 @@ Infos.forEach(element => {
     localStorage.setItem("Caminhoes", JSON.stringify(CaminhoesAtivos))
 })}
 
+function Voltar(){
+    window.location = ".././main/main.html";
+}
 
 
 
