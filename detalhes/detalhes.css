@@ -27,6 +27,12 @@
     text-align: center;
 }
 
+.c p {
+    outline: 1px solid #ebd9d0;
+    border-radius: 5px;
+    background-color: #ebd9d0;
+}
+
 button {
     font-size: 18px;
     border-color: #942434;
