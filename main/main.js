@@ -2,8 +2,12 @@
 const MainButton = document.getElementById("MainButton");
 const MessageButton = document.getElementById("message");
 var Botoes = document.getElementsByClassName("block");
+window.onload = function(){
+    Init();
+}
 
 let CaminhoesAtivos = {};
+let Index = 0;
 var Vagas = [
     Interna= [
         { "Ocupada": false },
@@ -48,6 +52,7 @@ class Caminhao{
     TempoDeJejumPrevisto;
     TempoDeJejumUsado;
     TempoDeJejumRestante;
+    Botao;
 
     GetInfo(){
         return {
@@ -96,14 +101,22 @@ class Caminhao{
         this.NotaFiscal = NotaFiscal;
         this.HorarioDeChegada = HorarioDeChegada;
 
-        this.TempoDeJejumPrevisto = Format(this.HorarioPrevistoInicioDoAbate - this.HorarioDeRetiradaDaRacao),
-        this.TempoDeJejumUsado = Format(this.HorarioAtual - this.HorarioDeRetiradaDaRacao),
-        this.TempoDeJejumRestante = Format(12 - (this.HorarioAtual - this.HorarioDeRetiradaDaRacao))  
+        this.TempoDeJejumPrevisto = Format(this.HorarioPrevistoInicioDoAbate - this.HorarioDeRetiradaDaRacao);
+        this.TempoDeJejumUsado = Format(this.HorarioAtual - this.HorarioDeRetiradaDaRacao);
+        this.TempoDeJejumRestante = Format(12 - (this.HorarioAtual - this.HorarioDeRetiradaDaRacao));
+        this.Botao = document.getElementById(Index + 1);
 
         Vagas.forEach(Tipo => {
             Tipo.forEach(Vaga =>{
                 if(Vaga.Ocupada == false && this.Vaga == null){
-               //     Botoes[CaminhoesAtivos.lenght].innerText = this.Placa;
+                    for (const child of this.Botao.children) {
+                        console.log(child.className)
+                        if(child.className == "status"){
+                            child.innerText = "Ativo";
+                        }else if(child.tagName == "P"){
+                            child.innerText = this.HorarioDeChegada;
+                        }
+                      }
                     this.Vaga = Vaga;
                     Vaga.Ocupada = true;
                     CaminhoesAtivos[this.OrdemDoCaminhao] = this;
@@ -131,8 +144,10 @@ function Remover(Placa, Justificativa){
 function GetHour() {
         var Data = new Date();
         var TimeString = Data.toISOString().substring(11, 19);
+        console.log(TimeString)
         return TimeString;
-}
+};
+
 
 function Format(Minutos) {
     var Horas = Math.floor(Minutos / 60);
@@ -196,7 +211,7 @@ const Infos = [
             "Horário previsto chegada frigorífico": "23:40",
             "Horário previsto início do abate": "03:30",
             "Ordem dos caminhões p/ abate": "1",
-            "Placa": "XXXX-000",
+            "Placa": "BRA2E19-00",
             "Nota fiscal": "FDIONU123",
             "Horário de chegada": "23:40"
         },
@@ -400,7 +415,10 @@ const Infos = [
         }
 ]
 
+function Init(){
 Infos.forEach(element => {
     const Keys = Object.keys(element);
-     new Caminhao(element[Keys[0]], element[Keys[1]], element[Keys[2]], element[Keys[3]], element[Keys[4]], element[Keys[5]], element[Keys[6]], element[Keys[7]], element[Keys[9]], element[Keys[10]], element[Keys[11]], element[Keys[12]], element[Keys[13]], element[Keys[14]], element[Keys[15]], element[Keys[16]], element[Keys[17]], element[Keys[18]], element[Keys[19]]);
-})
+     new Caminhao(element[Keys[0]], element[Keys[1]], element[Keys[2]], element[Keys[3]], element[Keys[4]], element[Keys[5]], element[Keys[6]], element[Keys[7]], element[Keys[8]],element[Keys[9]], element[Keys[10]], element[Keys[11]], element[Keys[12]], element[Keys[13]], element[Keys[14]], element[Keys[15]], element[Keys[16]], element[Keys[17]], element[Keys[18]], element[Keys[19]]);
+     console.log(element[Keys[0]], element[Keys[1]], element[Keys[2]], element[Keys[3]], element[Keys[4]], element[Keys[5]], element[Keys[6]], element[Keys[7]], element[Keys[8]],element[Keys[9]], element[Keys[10]], element[Keys[11]], element[Keys[12]], element[Keys[13]], element[Keys[14]], element[Keys[15]], element[Keys[16]], element[Keys[17]], element[Keys[18]], element[Keys[19]])
+    Index++;
+})}
