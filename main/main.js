@@ -109,33 +109,7 @@ class Caminhao{
                             child.innerText = this.OrdemDoCaminhao + " - " + this.Placa;
                         }else{
                             child.onclick = () => {
-                                localStorage.setItem("Selecionado", {
-
-                                    "Destino das aves": Destino,
-                                    "Aves por veículo": AvesPorVeiculo,
-                                    "Produtor": Produtor,
-                                    "Galpao": Galpao,
-                                    "Sexo": Sexo,
-                                    "Peso previsto das aves": PesoPrevistoDasAves,
-                                    "Aves por caixa": AvesPorCaixa,
-                                    "Peso previsto por caixa": PesoPrevistoPorCaixa,
-                                    "Municipio": Municipio,
-                                    "Data": Data,
-                                    "Horario de retirada da ração": Format(this.HorarioDeRetiradaDaRacao),
-                                    "Horário": Format(this.Horario),
-                                    "Turma de apanhaconfig": this.TurmaDeApanha,
-                                    "Idade": this.Idade,
-                                    "Horario previsto chegada frigorifico": Format(this.HorarioPrevistoChegadaFrigorifico),
-                                    "Horario ṕrevisto início do abate": Format(this.HorarioPrevistoInicioDoAbate),
-                                    "Ordem do caminhao": this.OrdemDoCaminhao,
-                                    "Placa": this.Placa,
-                                    "Nota fiscal": this.NotaFiscal,
-                                    "Horario de chegada": Format(this.HorarioDeChegada),
-                                    "Tempo de jejum previsto": Format(this.TempoDeJejumPrevisto),
-                                    "Tempo de jejum usado": Format(this.HorarioAtual - this.HorarioDeRetiradaDaRacao),
-                                    "Tempo de jejum restante": Format(12 - (this.HorarioAtual - this.HorarioDeRetiradaDaRacao)) 
-                                    
-                                })
+                                localStorage.setItem("Selecionado", Placa);
                                 window.location = ".././detalhes/detalhes.html";
                               };
                         }
@@ -235,16 +209,16 @@ const Infos = [
         "Peso previsto por caixa": "22400",
         "Município": "Coimbra",
         "Data": "15/11/2023",
-        "Horário de retirada da ração": "19:00",
-        "Horário": "22:00",
+        "Horário de retirada da ração": "1140",
+        "Horário": "1320",
         "Turma de apanha": "SINHORINHO",
         "Idade": "47",
-        "Horário previsto chegada frigorífico": "23:40",
-        "Horário previsto início do abate": "03:30",
+        "Horário previsto chegada frigorífico": "1420",
+        "Horário previsto início do abate": "210",
         "Ordem dos caminhões p/ abate": "1",
         "Placa": "BRA2E19",
         "Nota fiscal": "FDIONU123",
-        "Horário de chegada": "23:40"
+        "Horário de chegada": "1420"
     },
     {
         "Destino": "SIF - 926 (FABRIL)",
@@ -257,7 +231,7 @@ const Infos = [
         "Peso previsto por caixa": "22400",
         "Município": "Coimbra",
         "Data": "15/11/2023",
-        "Horário de retirada da ração": "19:00",
+        "Horário de retirada da ração": "1140",
         "Horário": "23:00",
         "Turma de apanha": "SINHORINHO",
         "Idade": "47",
@@ -452,6 +426,7 @@ Infos.forEach(element => {
     const Keys = Object.keys(element);
      new Caminhao(element[Keys[0]], element[Keys[1]], element[Keys[2]], element[Keys[3]], element[Keys[4]], element[Keys[5]], element[Keys[6]], element[Keys[7]], element[Keys[8]],element[Keys[9]], element[Keys[10]], element[Keys[11]], element[Keys[12]], element[Keys[13]], element[Keys[14]], element[Keys[15]], element[Keys[16]], element[Keys[17]], element[Keys[18]], element[Keys[19]]);
     Index++;
+    localStorage.setItem("Caminhoes", JSON.stringify(CaminhoesAtivos))
 })}
 
 
@@ -460,11 +435,20 @@ Infos.forEach(element => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 let Titulo;
 let Paragrafos;
-let Selec = localStorage.getItem("Selecionado")
+let Selec = localStorage.getItem("Selecionado");
+let Index2 = 0;
 
 function Init2(){
     Titulo = document.getElementById("titulo");
     Paragrafos = document.getElementById("container");
-    Titulo.innerText = "Detalhes do caminhão" + Selec.Placa;
-    console.log(Selec)
+    Titulo.innerText = "Detalhes do caminhão " + Selec;
+    Infos.forEach(element =>{
+        if(element.Placa == Selec){
+            Selec = element
+            Object.keys(Selec).forEach(ele =>{
+                Paragrafos.children[Index2].innerText = ele + ": " + Selec[ele];
+                Index2++
+            })
+        }
+    })
 }
