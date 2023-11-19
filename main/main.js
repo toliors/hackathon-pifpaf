@@ -1,13 +1,13 @@
 
 const MainButton = document.getElementById("MainButton");
-var Template
+var Template;
 const MessageButton = document.getElementById("message");
 var Botoes = document.getElementsByClassName("block");
 window.onload = function(){
-    Init();
     Template = document.getElementById("Template")
     console.log(Template)
     DisableButton("Template");
+    Init();
 }
 
 let CaminhoesAtivos = {};
@@ -99,7 +99,7 @@ class Caminhao{
         this.Horario = Horario;
         this.TurmaDeApanha = TurmaDeApanha;
         this.Idade = Idade;
-        this.HoMakeButtonrarioDeChegada = HorarioDeChegada;
+        this.HorarioDeChegada = HorarioDeChegada;
         this.HorarioPrevistoInicioDoAbate = HorarioPrevistoInicioDoAbate;
         this.OrdemDoCaminhao = Ordem;
         this.Placa = Placa;
@@ -110,10 +110,11 @@ class Caminhao{
         this.TempoDeJejumUsado = Format(this.HorarioAtual - this.HorarioDeRetiradaDaRacao);
         this.TempoDeJejumRestante = Format(12 - (this.HorarioAtual - this.HorarioDeRetiradaDaRacao));
         this.Botao = MakeButton(document.getElementById(Index + 1));
+
+        console.log(this.Botao)
         Vagas.forEach(Tipo => {
             Tipo.forEach(Vaga =>{
-                if(Vaga.Ocupada == false && this.Vaga == null){
-                    for (const child of this.Botao.children) {
+                ifl  for (const child of this.Botao.children) {
                         if(child.className == "status"){
                             child.innerText = "SEXO: " + this.Sexo;
                         }else if(child.tagName == "P"){
@@ -148,10 +149,10 @@ function Remover(Placa, Justificativa){
     });
 };
 
-function MakeButton(Index){
-        console.log(Template)
+function MakeButton(index){
         let NewButton = Template.cloneNode(true)
-        NewButton.id = Index;
+        NewButton.id = Index + 1;
+        document.getElementById("container").appendChild(NewButton);
         EnableButton(NewButton.id)
         return NewButton;
 }
