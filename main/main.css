@@ -99,16 +99,6 @@ body {
     cursor: pointer;
 }  
 
-.modal {
-    display: none;
-    position: absolute;
-    height: 40%;
-    width: 30%;
-    background-color: #831727;
-    border-radius: 7px;
-    color: #f1e5df;
-}
-
 .right {
     background-color: #f1bc35;
     float: left;
