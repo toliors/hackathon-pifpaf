@@ -209,16 +209,16 @@ const Infos = [
         "Peso previsto por caixa": "22400",
         "Município": "Coimbra",
         "Data": "15/11/2023",
-        "Horário de retirada da ração": "1140",
-        "Horário": "1320",
+        "Horário de retirada da ração": "19:00",
+        "Horário": "22:00",
         "Turma de apanha": "SINHORINHO",
         "Idade": "47",
-        "Horário previsto chegada frigorífico": "1420",
-        "Horário previsto início do abate": "210",
+        "Horário previsto chegada frigorífico": "23:40",
+        "Horário previsto início do abate": "03:30",
         "Ordem dos caminhões p/ abate": "1",
         "Placa": "BRA2E19",
         "Nota fiscal": "FDIONU123",
-        "Horário de chegada": "1420"
+        "Horário de chegada": "23:40"
     },
     {
         "Destino": "SIF - 926 (FABRIL)",
@@ -231,7 +231,7 @@ const Infos = [
         "Peso previsto por caixa": "22400",
         "Município": "Coimbra",
         "Data": "15/11/2023",
-        "Horário de retirada da ração": "1140",
+        "Horário de retirada da ração": "19:00",
         "Horário": "23:00",
         "Turma de apanha": "SINHORINHO",
         "Idade": "47",
@@ -407,7 +407,7 @@ const Infos = [
         "Peso previsto por caixa": "19,200",
         "Município": "Ervália",
         "Data": "16/11/2023",
-        "Horário de retirada da ração": "19:00",
+        "Horário de retirada da ração": "00:00",
         "Horário": "02:00",
         "Turma de apanha": "FÁBIO",
         "Idade": "57",
@@ -447,6 +447,15 @@ function Init2(){
             Selec = element
             Object.keys(Selec).forEach(ele =>{
                 Paragrafos.children[Index2].innerText = ele + ": " + Selec[ele];
+                let um = document.getElementById("um");
+                let dois = document.getElementById("dois");
+                let tres = document.getElementById("tres");
+                let quatro = document.getElementById("quatro");
+                um.innerText = "Horário máximo de jejum: 12:00";
+                let data = new Date();
+                dois.innerText = "Horário atual: " + data.getHours()+":"+data.getMinutes()+":"+data.getSeconds()
+                tres.innerText = "Horário aproximado já em jejum: " + Math.abs(data.getHours() - parseInt(Selec["Horário de retirada da ração"]))+":00"+":00"
+                quatro.innerText = "Horário restante permitido em jejum: "+ (12 - Math.abs(data.getHours() - parseInt(Selec["Horário de retirada da ração"])))+":"+ data.getMinutes()+":"+data.getSeconds()
                 Index2++
             })
         }
