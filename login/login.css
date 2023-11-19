@@ -2,23 +2,24 @@
 
 * {
     box-sizing: border-box;
-    font-family: 'Kanit', sans-serif
+    font-family: 'Kanit', sans-serif;
+    font-weight: bold;
 }
   
 .header {
-    background-color: #f1bc35; 
+    background-color: #942434; 
     padding: 30px; 
-    text-align:center
+    text-align: center
 }
 
 img {
     max-width: 100%;
     height: auto;
-    width: 450px;
+    width: 200px;
 }
 
 .main {
-    background-color: #f1bc35;
+    background-color: #f1e5df;
     color: #942434;
     float: left;
     width: 100%;
@@ -31,13 +32,17 @@ select {
     height: 50px;
     border-radius: 7px;
     background-color: white;
-    border: none;
+    border-color: #942434;
+    border-style: solid;
+    border-width: 3px;
     font-size: 16px;
 }
 
 input {
     font-size: 18px;
-    border: none;
+    border-color: #942434;
+    border-width: 3px;
+    border-style: solid;
     width: 300px;
     border-radius: 7px;
     height: 50px;
@@ -45,24 +50,25 @@ input {
 
 .form .entrar {
     transition: .5s;
-    background-color: white;
+    background-color: #942434;
+    color: #f1e5df;
 }
 
 .form .entrar:hover {
     transition: .5s;
-    background-color: #942434;
-    color: white;
+    background-color: #831727;
     cursor: pointer
     
 }
 
 .footer {
-    background-color: #f1bc35;
+    background-color: #942434;
+    color: #f1e5df;
     text-align: center;
     padding: 10px;
 }
 
-@media only screen and (max-width: 620px) {
+@media only screen and (max-width: 1250px) {
     .menu, .main, .right {
         width: 100%;
     }
