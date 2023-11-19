@@ -1,12 +1,20 @@
-let MainButton;
+let MainButton, Selected;
 var Template;
 const MessageButton = document.getElementById("message");
 var Botoes = document.getElementsByClassName("block");
+
 window.onload = function(){
+    console.log(window.location.pathname)
+    if(window.location.pathname != "/detalhes/detalhes.html"){
+        console.log(1)
     Template = document.getElementById("Template")
     console.log(Template)
     DisableButton("Template");
-    Init();
+    Init1();}
+    else{
+        console.log(2)
+        Init2();
+    }
 }
 
 let CaminhoesAtivos = {};
@@ -78,21 +86,6 @@ class Caminhao{
     }
     }
     constructor(Destino, AvesPorVeiculo, Produtor, Galpao, Sexo, PesoPrevistoDasAves, AvesPorCaixa, PesoPrevistoPorCaixa, Municipio, Data, HorarioDeRetiradaDaRacao, Horario, TurmaDeApanha, Idade, HorarioPrevistoDeChegada, HorarioPrevistoInicioDoAbate, Ordem, Placa, NotaFiscal, HorarioDeChegada){
-        this.DestinoAves = Destino;
-        this.AvesPorVeiculo = AvesPorVeiculo;
-        this.Produtor = Produtor;
-        this.Galpao = Galpao;
-        this.Sexo = Sexo;
-        this.PesoPrevistoDasAves = PesoPrevistoDasAves;
-        this.AvesPorCaixa = AvesPorCaixa;
-        this.PesoPrevistoPorCaixa = this.AvesPorCaixa * this.PesoPrevistoDasAves;
-        this.Municipio = Municipio;
-        this.Data = Data;
-        this.HorarioDeRetiradaDaRacao =  HorarioDeRetiradaDaRacao;
-        this.Horario = Horario;
-        this.TurmaDeApanha = TurmaDeApanha;
-        this.Idade = Idade;
-        this.HorarioDeChegada = HorarioDeChegada;
         this.HorarioPrevistoInicioDoAbate = HorarioPrevistoInicioDoAbate;
         this.OrdemDoCaminhao = Ordem;
         this.Placa = Placa;
@@ -116,8 +109,34 @@ class Caminhao{
                             child.innerText = this.OrdemDoCaminhao + " - " + this.Placa;
                         }else{
                             child.onclick = () => {
-                                console.log("dawdwd")
-                                EnableButton(MainButton.id);
+                                localStorage.setItem("Selecionado", {
+
+                                    "Destino das aves": Destino,
+                                    "Aves por veículo": AvesPorVeiculo,
+                                    "Produtor": Produtor,
+                                    "Galpao": Galpao,
+                                    "Sexo": Sexo,
+                                    "Peso previsto das aves": PesoPrevistoDasAves,
+                                    "Aves por caixa": AvesPorCaixa,
+                                    "Peso previsto por caixa": PesoPrevistoPorCaixa,
+                                    "Municipio": Municipio,
+                                    "Data": Data,
+                                    "Horario de retirada da ração": Format(this.HorarioDeRetiradaDaRacao),
+                                    "Horário": Format(this.Horario),
+                                    "Turma de apanhaconfig": this.TurmaDeApanha,
+                                    "Idade": this.Idade,
+                                    "Horario previsto chegada frigorifico": Format(this.HorarioPrevistoChegadaFrigorifico),
+                                    "Horario ṕrevisto início do abate": Format(this.HorarioPrevistoInicioDoAbate),
+                                    "Ordem do caminhao": this.OrdemDoCaminhao,
+                                    "Placa": this.Placa,
+                                    "Nota fiscal": this.NotaFiscal,
+                                    "Horario de chegada": Format(this.HorarioDeChegada),
+                                    "Tempo de jejum previsto": Format(this.TempoDeJejumPrevisto),
+                                    "Tempo de jejum usado": Format(this.HorarioAtual - this.HorarioDeRetiradaDaRacao),
+                                    "Tempo de jejum restante": Format(12 - (this.HorarioAtual - this.HorarioDeRetiradaDaRacao)) 
+                                    
+                                })
+                                window.location = ".././detalhes/detalhes.html";
                               };
                         }
                     CaminhoesAtivos[this.OrdemDoCaminhao] = this;
@@ -136,7 +155,9 @@ function Remover(Placa, Justificativa){
             delete Carga;
         }else{
             Carga.OrdemDoCaminhao--;
-            if(Carga.Vaga == null){
+            function Init2(){
+    
+            } if(Carga.Vaga == null){
                 MakeMessage("Sua ordem agora é " + Carga.OrdemDoCaminhao + "º", 10);
             }
         }
@@ -151,7 +172,7 @@ function MakeButton(index){
         return NewButton;
 }
 
-function GetHour() {
+function GetHour() {Selecionado
         var Data = new Date();
         var TimeString = Data.toISOString().substring(11, 19);
         console.log(TimeString)
@@ -425,13 +446,25 @@ const Infos = [
     }
 ]
 
-function Init(){
+function Init1(){
     MainButton = document.getElementById("modal");
-    document.getElementById("fechar").onclick = () => {
-        DisableButton(MainButton.id);
-      };
 Infos.forEach(element => {
     const Keys = Object.keys(element);
      new Caminhao(element[Keys[0]], element[Keys[1]], element[Keys[2]], element[Keys[3]], element[Keys[4]], element[Keys[5]], element[Keys[6]], element[Keys[7]], element[Keys[8]],element[Keys[9]], element[Keys[10]], element[Keys[11]], element[Keys[12]], element[Keys[13]], element[Keys[14]], element[Keys[15]], element[Keys[16]], element[Keys[17]], element[Keys[18]], element[Keys[19]]);
     Index++;
 })}
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+let Titulo;
+let Paragrafos;
+let Selec = localStorage.getItem("Selecionado")
+
+function Init2(){
+    Titulo = document.getElementById("titulo");
+    Paragrafos = document.getElementById("container");
+    Titulo.innerText = "Detalhes do caminhão" + Selec.Placa;
+    console.log(Selec)
+}
