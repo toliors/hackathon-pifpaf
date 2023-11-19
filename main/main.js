@@ -14,18 +14,18 @@ let CaminhoesAtivos = {};
 let Index = 0;
 var Vagas = [
     Interna= [
-        { "Ocupada": false },
-        { "Ocupada": false },
-        { "Ocupada": false },
-        { "Ocupada": false }
+        { "Ocupada": false, "Nome": "Interna1" },
+        { "Ocupada": false, "Nome": "Interna2" },
+        { "Ocupada": false, "Nome": "Interna3" },
+        { "Ocupada": false, "Nome": "Interna4" }
     ],
     Externa= [
-        { "Ocupada": false },
-        { "Ocupada": false },
-        { "Ocupada": false },
-        { "Ocupada": false },
-        { "Ocupada": false },
-        { "Ocupada": false }
+        { "Ocupada": false, "Nome": "Externa1" },
+        { "Ocupada": false, "Nome": "Externa2" },
+        { "Ocupada": false, "Nome": "Externa3" },
+        { "Ocupada": false, "Nome": "Externa4" },
+        { "Ocupada": false, "Nome": "Externa5" },
+        { "Ocupada": false, "Nome": "Externa6" }
     ]
 ];
 
@@ -84,7 +84,7 @@ class Caminhao{
         "Tempo de jejum restante": Format(12 - (this.HorarioAtual - this.HorarioDeRetiradaDaRacao))  
     }
     }
-    constructor(Destino, AvesPorVeiculo, Produtor, Galpao, Sexo, PesoPrevistoDasAves, AvesPorCaixa, a, Municipio, Data, HorarioDeRetiradaDaRacao, Horario, TurmaDeApanha, Idade, HorarioPrevistoDeChegada, HorarioPrevistoInicioDoAbate, Ordem, Placa, NotaFiscal, HorarioDeChegada){
+    constructor(Destino, AvesPorVeiculo, Produtor, Galpao, Sexo, PesoPrevistoDasAves, AvesPorCaixa, PesoPrevistoPorCaixa, Municipio, Data, HorarioDeRetiradaDaRacao, Horario, TurmaDeApanha, Idade, HorarioPrevistoDeChegada, HorarioPrevistoInicioDoAbate, Ordem, Placa, NotaFiscal, HorarioDeChegada){
         this.DestinoAves = Destino;
         this.AvesPorVeiculo = AvesPorVeiculo;
         this.Produtor = Produtor;
@@ -110,13 +110,15 @@ class Caminhao{
         this.TempoDeJejumUsado = Format(this.HorarioAtual - this.HorarioDeRetiradaDaRacao);
         this.TempoDeJejumRestante = Format(12 - (this.HorarioAtual - this.HorarioDeRetiradaDaRacao));
         this.Botao = MakeButton(document.getElementById(Index + 1));
-
         console.log(this.Botao)
         Vagas.forEach(Tipo => {
             Tipo.forEach(Vaga =>{
-                ifl  for (const child of this.Botao.children) {
+                if(Vaga.Ocupada == false && this.Vaga == null){
+             for (const child of this.Botao.children) {
+                        this.Vaga = Vaga;
+                        Vaga.Ocupada = true;
                         if(child.className == "status"){
-                            child.innerText = "SEXO: " + this.Sexo;
+                            child.innerText = "Vaga: " + this.Vaga.Nome;
                         }else if(child.tagName == "P"){
                             child.innerText = this.OrdemDoCaminhao + " - " + this.Placa;
                         }else{
@@ -124,12 +126,9 @@ class Caminhao{
                                 console.log(this.GetInfo());
                               };
                         }
-                      }
-                    this.Vaga = Vaga;
-                    Vaga.Ocupada = true;
                     CaminhoesAtivos[this.OrdemDoCaminhao] = this;
                 }
-            })
+            }})
          });   
     }
 }
@@ -139,6 +138,7 @@ function Remover(Placa, Justificativa){
         if(Carga.Placa == Placa){
             MakeMessage(Justificativa, 10);
             Carga.Vaga.Ocupada = false;
+            DisableButton(Carga.Botao.id);  
             delete Carga;
         }else{
             Carga.OrdemDoCaminhao--;
@@ -155,6 +155,22 @@ function MakeButton(index){
         document.getElementById("container").appendChild(NewButton);
         EnableButton(NewButton.id)
         return NewButton;
+}
+
+function ReOrder(){
+var divs = mylist.getElementsByClassName('block');
+var listitems = [];
+for (i = 0; i < divs.length; i++) {
+        listitems.push(divs.item(i));
+}
+listitems.sort(function(a, b) {
+    var compA = a.getAttribute('id').toUpperCase();
+    var compB = b.getAttribute('id').toUpperCase();
+    return (compA < compB) ? -1 : (compA > compB) ? 1 : 0;
+});
+for (i = 0; i < listitems.length; i++) {
+    mylist.appendChild(listitems[i]);
+}​
 }
 
 function GetHour() {
